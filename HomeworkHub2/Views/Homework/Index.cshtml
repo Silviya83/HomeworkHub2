@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Homework</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,47 +13,58 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Grade)
+                <p style="color:white;"> @Html.DisplayNameFor(model => model.Grade)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IsGraded)
+                <p style="color:white;"> @Html.DisplayNameFor(model => model.IsGraded)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Solution)
+                <p style="color:white;"> @Html.DisplayNameFor(model => model.Solution)
+            </th>
+            @*  <th>
+            @Html.DisplayNameFor(model => model.StudentId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Student)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Assignment)
-            </th>
+            @Html.DisplayNameFor(model => model.AssignmentId)
+            </th> *@
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Grade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsGraded)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Solution)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Student.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Assignment.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <p style="color:white;">
+                        @Html.DisplayFor(modelItem => item.Grade)
+                        @* <a asp-action="Details" asp-route-id="@item.Id">Details</a> *@
+                </td>
+
+                <td>
+                    <p style="color:white;">
+                        @Html.DisplayFor(modelItem => item.IsGraded)
+                        @*   <a asp-action="Details" asp-route-id="@item.Id">Details</a> *@
+                </td>
+
+                <td>
+                    <p style="color:white;">
+                        @Html.DisplayFor(modelItem => item.Solution)
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </td>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a asp-action="Create">Create New</a>
+                    </td>
+                }
+                else
+                {
+
+                }
+            </tr>
+        }
     </tbody>
 </table>

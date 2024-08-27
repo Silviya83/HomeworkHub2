@@ -6,9 +6,17 @@
 
 <h1>Assignments</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+else
+{
+
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -22,18 +30,18 @@
                 <p style="color:white;"> @Html.DisplayNameFor(model => model.DeadLine)
             </th>
             <th>
-                @if (User.IsInRole("Admin"))
-                {
+              @*   @if (User.IsInRole("Admin"))
+                { *@
                 <th>
-                    <p style="color:white;"> @Html.DisplayNameFor(model => model.SubjectId)
+                    <p style="color:white;"> @Html.DisplayNameFor(model => model.Subject)
                 </th>
                 <th>
-                    <p style="color:white;"> @Html.DisplayNameFor(model => model.TeacherId)
+                    <p style="color:white;"> @Html.DisplayNameFor(model => model.Teacher)
                 </th>
-                }
+              @*   }
                 else
                 {
-                }
+                } *@
         </tr>
     </thead>
     <tbody>
@@ -62,29 +70,20 @@
 
                 <th>
                     <p style="color:white;">
-                        @Html.DisplayFor(modelItem => item.SubjectId)
+                        @Html.DisplayFor(modelItem => item.Subject.Name)
                 </th>
                 <th>
                     <p style="color:white;">
-                        @Html.DisplayFor(modelItem => item.TeacherId)
+                        @Html.DisplayFor(modelItem => item.Teacher.LastName)
 
                 </th>
 
                 @if (User.IsInRole("Admin"))
                 {
-                    <th>
-                        <p style="color:white;"> @Html.DisplayFor(modelItem => item.Subject.Name)
-                    </th>
-                    <th>
-                        <p style="color:white;"> @Html.DisplayFor(modelItem => item.Teacher.LastName)
-
-                    </th>
-                    <th></th>
-
+                   
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        <a asp-action="Create">Create New</a>
                     </td>
                 }
                 else

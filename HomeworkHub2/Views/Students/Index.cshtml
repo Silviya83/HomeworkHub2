@@ -6,9 +6,16 @@
 
 <h1>Students</h1>
 
-@* <p>
-    <a asp-action="Create">Create New</a>
-</p> *@
+@if (User.IsInRole("Admin"))
+{
+    <td>
+        <a asp-action="Create">Create New</a>
+    </td>
+}
+else
+{
+
+}
 <table class="table">
     <thead>
         <tr>
@@ -24,9 +31,6 @@
             <th>
                 <p style="color:white;"> @Html.DisplayNameFor(model => model.Class)
             </th>
-            @*  <th>
-            <p style="color:white;" @Html.DisplayNameFor(model => model.ClassId)
-            </th> *@
             <th></th>
         </tr>
     </thead>
@@ -35,36 +39,34 @@
         {
             <tr>
                 <td>
-                    <p style="color:white;">
-                        @Html.DisplayFor(modelItem => item.FirstName)
-                        @*                         <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                    *@
+
+                    <p style="color:white;"> @Html.DisplayFor(modelItem => item.FirstName)
+              
                 </td>
 
                 <td>
-                    <p style="color:white;">
-                        @Html.DisplayFor(modelItem => item.LastName)
-                        @* <a asp-action="Details" asp-route-id="@item.Id">Details</a> *@
+                    <p style="color:white;">  @Html.DisplayFor(modelItem => item.LastName)                      
                 </td>
 
-                <td>
-                    <p style="color:white;">
-                        @Html.DisplayFor(modelItem => item.Email)
-                        @* <a asp-action="Details" asp-route-id="@item.Id">Details</a> *@
+                <td>                   
+                    <p style="color:white;">  @Html.DisplayFor(modelItem => item.Email)
                 </td>
 
-                <td>
+                <th>
                     <p style="color:white;">
-                        @Html.DisplayFor(modelItem => item.Class)
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                </td>
+                        @Html.DisplayFor(modelItem => item.Class.Name)
+                </th>
+              
+                
 
                 @if (User.IsInRole("Admin"))
                 {
                     <td>
+                        
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        <a asp-action="Create">Create New</a>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+
                     </td>
                 }
                 else

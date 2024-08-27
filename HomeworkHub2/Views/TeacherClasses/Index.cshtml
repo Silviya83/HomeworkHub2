@@ -4,19 +4,27 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Teachers&Classes</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+else
+{
+
+}
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Teacher)
+                <p style="color:white;"> @Html.DisplayNameFor(model => model.Teacher)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Class)
+                <p style="color:white;"> @Html.DisplayNameFor(model => model.Class)
             </th>
             <th></th>
         </tr>
@@ -25,16 +33,25 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Teacher.Id)
+                    <p style="color:white;"> @Html.DisplayFor(modelItem => item.Teacher.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Class.Id)
+                    <p style="color:white;"> @Html.DisplayFor(modelItem => item.Class.Name)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+
+                    </td>
+                }
+                else
+                {
+
+                }
         </tr>
 }
     </tbody>

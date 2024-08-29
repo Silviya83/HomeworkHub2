@@ -6,16 +6,9 @@
 
 <h1>Homework</h1>
 
-@if (User.IsInRole("Admin"))
-{
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-}
-else
-{
 
-}
+<a asp-action="Create">Add homework</a>
+
 
 <table class="table">
     <thead>
@@ -55,9 +48,12 @@ else
                 </td>
 
                 <td>
-                    <p style="color:white;">
-                        @Html.DisplayFor(modelItem => item.Solution)
-                        
+                    @* <div class="solution">
+                        <img src="@item.Solution" alt="Image" style=" max-width: 250px; max-height: 300px;" />
+                    </div> *@
+                    <div class="solution">
+                        <a href="@item.Solution" target="_blank">View Solution</a>
+                    </div>
                 </td>
                 <td>
                     <p style="color:white;">

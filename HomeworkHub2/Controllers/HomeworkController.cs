@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HomeworkHub2.Data;
 using HomeworkHub2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HomeworkHub2.Controllers
 {
@@ -20,6 +21,7 @@ namespace HomeworkHub2.Controllers
         }
 
         // GET: Homework
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Homework.Include(h => h.Assignment).Include(h => h.Student);
@@ -65,7 +67,7 @@ namespace HomeworkHub2.Controllers
             {
                 _context.Add(homework);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToPage(nameof(Index));
             }
             ViewData["AssignmentId"] = new SelectList(_context.Assignment, "Id", "Id", homework.AssignmentId);
             ViewData["StudentId"] = new SelectList(_context.Set<Student>(), "Id", "Id", homework.StudentId);
@@ -73,6 +75,7 @@ namespace HomeworkHub2.Controllers
         }
 
         // GET: Homework/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -128,6 +131,7 @@ namespace HomeworkHub2.Controllers
         }
 
         // GET: Homework/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

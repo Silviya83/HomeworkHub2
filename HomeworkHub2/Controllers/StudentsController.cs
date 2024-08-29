@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HomeworkHub2.Data;
 using HomeworkHub2.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HomeworkHub2.Controllers
 {
@@ -46,6 +47,7 @@ namespace HomeworkHub2.Controllers
         }
 
         // GET: Students/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["ClassId"] = new SelectList(_context.Class, "Id", "Id");
@@ -70,6 +72,7 @@ namespace HomeworkHub2.Controllers
         }
 
         // GET: Students/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -123,6 +126,7 @@ namespace HomeworkHub2.Controllers
         }
 
         // GET: Students/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
